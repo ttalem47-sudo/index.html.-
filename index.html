@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الترحيب والدمج | هندسة</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // تم ربط الحساب بمفتاحك العام المخصص بنجاح
+            emailjs.init("Z76kmpd1JjA8aiAKG");
+        })();
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* الصورة الأولى الافتراضية للواجهة (اسم الملف: bg1.jpg) */
+            background: url('bg1.jpg') no-repeat center center/cover;
+            transition: background 1s ease-in-out;
+            overflow: hidden;
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 35px;
+            width: 85%;
+            max-width: 480px;
+            color: #ffffff;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        select option { color: #333; }
+        
+        button {
+            background: #ffffff;
+            color: #1a1a1a;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        button:disabled {
+            background: rgba(255,255,255,0.4);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-box">
+        <div id="screen1" class="screen active">
+            <h2 style="margin-bottom: 5px;">مرحباً بك في الكيان الموحد</h2>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 25px;">سجّل بياناتك للانضمام إلينا</p>
+            
+            <input type="text" id="studentName" placeholder="الاسم الكامل" required>
+            
+            <select id="batch">
+                <option value="" disabled selected>اختر الدفعة</option>
+                <option value="23">دفعة 23</option>
+                <option value="24">دفعة 24</option>
+            </select>
+            
+            <select id="gender">
+                <option value="" disabled selected>الجنس</option>
+                <option value="ذكر">ذكر</option>
+                <option value="بنت">بنت</option>
+            </select>
+            
+            <button onclick="goToScreen2()">دخول</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <h3 id="welcomeTitle" style="font-size: 22px; margin-top: 0;">يا هندسة!</h3>
+            <p id="welcomeMessage" style="line-height: 1.7; text-align: justify; font-size: 14.5px; color: rgba(255,255,255,0.95); max-height: 200px; overflow-y: auto; padding-right: 5px;"></p>
+            
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+            
+            <p style="margin-bottom: 5px; font-weight: bold;">اكتب رسالة لزملائك في الكيان (الخزانة):</p>
+            <textarea id="studentMessage" rows="4" placeholder="عبر عن مشاعرك أو ترحيبك هنا..."></textarea>
+            
+            <button id="sendBtn" onclick="sendToGmail()">إرسال الرسالة</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <div style="font-size: 50px; margin-bottom: 10px;">✨</div>
+            <h2 style="margin-top: 0;">تم الإرسال بنجاح!</h2>
+            <p style="color: rgba(255,255,255,0.9); line-height: 1.6;">رسالتك الآن نزلت في الخزانة الحافظة للذكريات. شكرًا لك يا هندسة!</p>
+        </div>
+    </div>
+
+    <script>
+        const messages = {
+            '23': {
+                'بنت': "أهلاً بكِ يا هندسة في بيتكِ الجديد. نرحب بكِ أجمل ترحيب في رحاب الكيان الموحد، حيث يلتقي الطموح بالإبداع. مرحباً بكِ معنا في كياننا العام، حيث نلتحم اليوم كدفعتين 23 و 24 معاً لنصنع التغيير ونقود المستقبل بروح واحدة. نحن هنا لسنا مجرد زميلات دراسة، بل أسرة واحدة يجمعنا شغف البناء والتطوير. حتماً سيكون بيننا تعاون مثمر ومستمر، نتبادل فيه الخبرات والمعارف لنتجاوز معاً كل التحديات الهندسية والصعاب الأكاديمية. ثقي بأن بصمتكِ في هذه الكلية ستكون مميزة، ومعاً كطالبات هندسة سنثبت أن الإبداع لا حدود له، وأننا قادرات على صياغة النجاح بأيدينا. أهلاً بكِ في رحلة العطاء والتميز تحت سقف واحد.",
+                'ذكر': "أهلاً بك يا هندسة في بيتك الجديد. نرحب بك أجمل ترحيب في رحاب الكيان الموحد، حيث يلتقي الطموح بالإبداع. مرحباً بك معنا في كياننا العام، حيث نلتحم اليوم كدفعتين 23 و 24 معاً لنصنع التغيير ونقود المستقبل بروح واحدة. نحن هنا لسنا مجرد زملاء دراسة، بل أسرة واحدة يجمعنا شغف البناء والتطوير. حتماً سيكون بيننا تعاون مثمر ومستمر، نتبادل فيه الخبرات والمعارف لنتجاوز معاً كل التحديات الهندسية والصعاب الأكاديمية. ثق بأن بصمتك في هذه الكلية ستكون مميزة، ومعاً كطلاب هندسة سنثبت أن الإبداع لا حدود له، وأننا قادرون على صياغة النجاح بأيدينا. أهلاً بك في رحلة العطاء والتميز تحت سقف واحد."
+            },
+            '24': {
+                'بنت': "مرحباً بكِ يا هندسة في انطلاقتكِ الجديدة مع دفعة 24. نحن هنا اليوم لنؤكد أن المسيرة مستمرة، وأننا معاً سنكون أقوى وأفضل بإذن الله. إن دمجنا مع دفعة 23 ليس مجرد خطوة أكاديمية، بل هو فرصة عظيمة وتاريخية لنكون أحسن، ولنستفيد من خبراتهم ونتكامل معهم بروح واحدة وعزيمة لا تلين. سنواصل طريقنا بكل ثقة، وسنضع يداً بيد لنصنع تجربة جامعية وهندسية فريدة ومتميزة تليق بنا جميعاً. أهلاً بكِ في هذا الكيان النابض بالطاقة.",
+                'ذكر': "مرحباً بك يا هندسة في انطلاقتك الجديدة مع دفعة 24. نحن هنا اليوم لنؤكد أن المسيرة مستمرة، وأننا معاً سنكون أقوى وأفضل بإذن الله. إن دمجنا مع دفعة 23 ليس مجرد خطوة أكاديمية، بل هو فرصة عظيمة وتاريخية لنكون أحسن، ولنستفيد من خبراتهم ونتكامل معهم بروح واحدة وعزيمة لا تلين. سنواصل طريقنا بكل ثقة, وسنضع يداً بيد لنصنع تجربة جامعية وهندسية فريدة ومتميزة تليق بنا جميعاً. أهلاً بك في هذا الكيان النابض بالطاقة."
+            }
+        };
+
+        // 🖼️ مسميات ملفات الصور المحلية داخل مجلد المشروع
+        const backgrounds = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg'];
+        let studentName, batch, gender;
+
+        function goToScreen2() {
+            studentName = document.getElementById('studentName').value.trim();
+            batch = document.getElementById('batch').value;
+            gender = document.getElementById('gender').value;
+
+            if(!studentName || !batch || !gender) {
+                alert('يا هندسة، الرجاء ملء جميع الحقول أولاً!');
+                return;
+            }
+
+            let title = gender === 'بنت' ? `مرحباً بكِ يا بشمهندسة ${studentName}` : `مرحباً بك يا بشمهندس ${studentName}`;
+            document.getElementById('welcomeTitle').innerText = title;
+            document.getElementById('welcomeMessage').innerText = messages[batch][gender];
+
+            document.getElementById('screen1').classList.remove('active');
+            document.getElementById('screen2').classList.add('active');
+            // الانتقال للصورة الثانية عند الدخول (bg2.jpg)
+            document.body.style.backgroundImage = `url('${backgrounds[1]}')`;
+        }
+
+        function sendToGmail() {
+            const messageText = document.getElementById('studentMessage').value.trim();
+            if(!messageText) {
+                alert('الرجاء كتابة رسالتك للخزانة أولاً يا هندسة!');
+                return;
+            }
+
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.innerText = "جاري الحفظ في الخزانة...";
+            sendBtn.disabled = true;
+
+            const templateParams = {
+                student_name: studentName,
+                batch: "دفعة " + batch,
+                gender: gender,
+                message: messageText
+            };
+
+            const serviceID = "service_a8wqxpn";
+            const templateID = "template_4eh8cls";
+
+            emailjs.send(serviceID, templateID, templateParams)
+                .then(function(response) {
+                    document.getElementById('screen2').classList.remove('active');
+                    document.getElementById('screen3').classList.add('active');
+                    // الانتقال للصورة الثالثة عند الإرسال بنجاح (bg3.jpg)
+                    document.body.style.backgroundImage = `url('${backgrounds[2]}')`;
+                }, function(error) {
+                    console.error("فشل الإرسال:", error);
+                    alert("عذراً يا هندسة، حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+                    sendBtn.innerText = "إرسال الرسالة";
+                    sendBtn.disabled = false;
+                });
+        }
+    </script>
+</body>
+</html>
