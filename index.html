@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,7 +9,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // تم ربط الحساب بمفتاحك العام المخصص بنجاح
             emailjs.init("Z76kmpd1JjA8aiAKG");
         })();
     </script>
@@ -22,23 +22,23 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* الصورة الأولى الافتراضية للواجهة (اسم الملف: bg1.jpg) */
-            background: url('bg1.jpg') no-repeat center center/cover;
+            /* ربط الصورة الأولى باسمها الطويل الحقيقي من المستودع */
+            background: #111 url('IMG-20251130-WA0005_edit_253387990920577.jpg') no-repeat center center/cover;
             transition: background 1s ease-in-out;
             overflow: hidden;
         }
 
         .glass-box {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
             padding: 35px;
             width: 85%;
             max-width: 480px;
             color: #ffffff;
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
             text-align: center;
             transition: all 0.5s ease;
         }
@@ -88,12 +88,12 @@
             margin-top: 15px;
             width: 100%;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         button:hover {
             background: #f0f0f0;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         button:disabled {
             background: rgba(255,255,255,0.4);
@@ -105,7 +105,7 @@
 
     <div class="glass-box">
         <div id="screen1" class="screen active">
-            <h2 style="margin-bottom: 5px;">مرحباً بك في الكيان الموحد</h2>
+            <h2 style="margin-bottom: 5px; color: #fff;">مرحباً بك في الكيان الموحد</h2>
             <p style="color: rgba(255,255,255,0.8); margin-bottom: 25px;">سجّل بياناتك للانضمام إلينا</p>
             
             <input type="text" id="studentName" placeholder="الاسم الكامل" required>
@@ -126,12 +126,12 @@
         </div>
 
         <div id="screen2" class="screen">
-            <h3 id="welcomeTitle" style="font-size: 22px; margin-top: 0;">يا هندسة!</h3>
+            <h3 id="welcomeTitle" style="font-size: 22px; margin-top: 0; color: #fff;">يا هندسة!</h3>
             <p id="welcomeMessage" style="line-height: 1.7; text-align: justify; font-size: 14.5px; color: rgba(255,255,255,0.95); max-height: 200px; overflow-y: auto; padding-right: 5px;"></p>
             
             <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
             
-            <p style="margin-bottom: 5px; font-weight: bold;">اكتب رسالة لزملائك في الكيان (الخزانة):</p>
+            <p style="margin-bottom: 5px; font-weight: bold; color: #fff;">اكتب رسالة لزملائك في الكيان (الخزانة):</p>
             <textarea id="studentMessage" rows="4" placeholder="عبر عن مشاعرك أو ترحيبك هنا..."></textarea>
             
             <button id="sendBtn" onclick="sendToGmail()">إرسال الرسالة</button>
@@ -139,7 +139,7 @@
 
         <div id="screen3" class="screen">
             <div style="font-size: 50px; margin-bottom: 10px;">✨</div>
-            <h2 style="margin-top: 0;">تم الإرسال بنجاح!</h2>
+            <h2 style="margin-top: 0; color: #fff;">تم الإرسال بنجاح!</h2>
             <p style="color: rgba(255,255,255,0.9); line-height: 1.6;">رسالتك الآن نزلت في الخزانة الحافظة للذكريات. شكرًا لك يا هندسة!</p>
         </div>
     </div>
@@ -152,12 +152,17 @@
             },
             '24': {
                 'بنت': "مرحباً بكِ يا هندسة في انطلاقتكِ الجديدة مع دفعة 24. نحن هنا اليوم لنؤكد أن المسيرة مستمرة، وأننا معاً سنكون أقوى وأفضل بإذن الله. إن دمجنا مع دفعة 23 ليس مجرد خطوة أكاديمية، بل هو فرصة عظيمة وتاريخية لنكون أحسن، ولنستفيد من خبراتهم ونتكامل معهم بروح واحدة وعزيمة لا تلين. سنواصل طريقنا بكل ثقة، وسنضع يداً بيد لنصنع تجربة جامعية وهندسية فريدة ومتميزة تليق بنا جميعاً. أهلاً بكِ في هذا الكيان النابض بالطاقة.",
-                'ذكر': "مرحباً بك يا هندسة في انطلاقتك الجديدة مع دفعة 24. نحن هنا اليوم لنؤكد أن المسيرة مستمرة، وأننا معاً سنكون أقوى وأفضل بإذن الله. إن دمجنا مع دفعة 23 ليس مجرد خطوة أكاديمية، بل هو فرصة عظيمة وتاريخية لنكون أحسن، ولنستفيد من خبراتهم ونتكامل معهم بروح واحدة وعزيمة لا تلين. سنواصل طريقنا بكل ثقة, وسنضع يداً بيد لنصنع تجربة جامعية وهندسية فريدة ومتميزة تليق بنا جميعاً. أهلاً بك في هذا الكيان النابض بالطاقة."
+                'ذكر': "مرحباً بك يا هندسة في انطلاقتك الجديدة مع دفعة 24. نحن هنا اليوم لنؤكد أن المسيرة مستمرة، وأننا معاً سنكون أقوى وأفضل بإذن الله. إن دمجنا مع دفعة 23 ليس مجرد خطوة أكاديمية، بل هو فرصة عظيمة وتاريخية لنكون أحسن، ولنستفيد من خبراتهم ونتكامل معهم بروح واحدة وعزيمة لا تلين. سنواصل طريقنا بكل ثقة، وسنضع يداً بيد لنصنع تجربة جامعية وهندسية فريدة ومتميزة تليق بنا جميعاً. أهلاً بك في هذا الكيان النابض بالطاقة."
             }
         };
 
-        // 🖼️ مسميات ملفات الصور المحلية داخل مجلد المشروع
-        const backgrounds = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg'];
+        // مصفوفة أسماء الصور الحقيقية من مستودعك بالترتيب للواجهات الثلاثة
+        const backgrounds = [
+            'IMG-20251130-WA0005_edit_253387990920577.jpg',
+            'IMG-20251130-WA0016_edit_253425409552073.jpg',
+            'IMG-20260613-WA0054.jpg'
+        ];
+        
         let studentName, batch, gender;
 
         function goToScreen2() {
@@ -176,7 +181,6 @@
 
             document.getElementById('screen1').classList.remove('active');
             document.getElementById('screen2').classList.add('active');
-            // الانتقال للصورة الثانية عند الدخول (bg2.jpg)
             document.body.style.backgroundImage = `url('${backgrounds[1]}')`;
         }
 
@@ -205,7 +209,6 @@
                 .then(function(response) {
                     document.getElementById('screen2').classList.remove('active');
                     document.getElementById('screen3').classList.add('active');
-                    // الانتقال للصورة الثالثة عند الإرسال بنجاح (bg3.jpg)
                     document.body.style.backgroundImage = `url('${backgrounds[2]}')`;
                 }, function(error) {
                     console.error("فشل الإرسال:", error);
